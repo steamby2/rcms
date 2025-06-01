@@ -1,0 +1,40 @@
+# Configuration Elasticsearch pour RCMS_Test
+# Auteur: Arthur
+
+# ---------------------------------- Cluster -----------------------------------
+cluster.name: rcms-monitoring
+node.name: rcms-node-1
+
+# ------------------------------------ Node ------------------------------------
+node.master: true
+node.data: true
+
+# ----------------------------------- Paths ------------------------------------
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+
+# ---------------------------------- Network -----------------------------------
+network.host: 0.0.0.0
+http.port: 9200
+transport.tcp.port: 9300
+
+# --------------------------------- Discovery ----------------------------------
+discovery.type: single-node
+
+# ---------------------------------- Security ---------------------------------
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.verification_mode: certificate
+xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
+xpack.security.transport.ssl.truststore.path: elastic-certificates.p12
+
+# ---------------------------------- HTTP ------------------------------------
+http.cors.enabled: true
+http.cors.allow-origin: "http://kibana:5601"
+http.cors.allow-credentials: true
+
+# ---------------------------------- Memory ----------------------------------
+bootstrap.memory_lock: true
+
+# ---------------------------------- Monitoring ------------------------------
+xpack.monitoring.collection.enabled: true

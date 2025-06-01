@@ -1,0 +1,32 @@
+# Kibana configuration for RCMS_Test
+# Auteur: Arthur
+
+# ========================= Server Configuration =========================
+server.name: "rcms-kibana"
+server.host: "0.0.0.0"
+server.port: 5601
+
+# ========================= Elasticsearch Configuration =========================
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+elasticsearch.username: "${ELASTICSEARCH_USERNAME}"
+elasticsearch.password: "${ELASTICSEARCH_PASSWORD}"
+elasticsearch.ssl.verificationMode: none
+
+# ========================= Security Configuration =========================
+xpack.security.enabled: true
+xpack.encryptedSavedObjects.encryptionKey: "${ENCRYPTION_KEY}"
+server.ssl.enabled: true
+server.ssl.certificate: "/etc/kibana/certs/kibana.crt"
+server.ssl.key: "/etc/kibana/certs/kibana.key"
+
+# ========================= Monitoring Configuration =========================
+monitoring.ui.container.elasticsearch.enabled: true
+xpack.monitoring.ui.container.elasticsearch.enabled: true
+
+# ========================= Logging Configuration =========================
+logging.dest: /var/log/kibana/kibana.log
+logging.verbose: false
+
+# ========================= Other Configuration =========================
+kibana.index: ".kibana"
+i18n.locale: "fr"
