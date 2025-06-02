@@ -1,4 +1,4 @@
-version: '3.8'
+#version: '3.8'
 
 services:
   # VM1: Simulateur DME avec SNMPv3
@@ -162,10 +162,6 @@ services:
 networks:
   rcms_network:
     driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.20.0.0/16
 
 volumes:
   elasticsearch_data:
