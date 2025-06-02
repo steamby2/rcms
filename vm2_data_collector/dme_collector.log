@@ -21,3 +21,13 @@
 2025-06-02 17:56:50,603 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7a86e58171c0>: Failed to establish a new connection: [Errno 111] Connection refused')': /all
 2025-06-02 17:56:54,609 - urllib3.connectionpool - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7a86e586f670>: Failed to establish a new connection: [Errno 111] Connection refused')': /all
 2025-06-02 17:56:54,611 - dme_collector - ERROR - Erreur de connexion au simulateur DME: HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: /all (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7a86e586fc70>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-06-02 18:18:54,658 - dme_collector - INFO - Démarrage de la collecte de données DME (intervalle: 180s)
+2025-06-02 18:18:54,669 - urllib3.connectionpool - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7aaef3e8e550>: Failed to establish a new connection: [Errno 111] Connection refused')': /all
+2025-06-02 18:18:56,672 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7aaef3e8e7c0>: Failed to establish a new connection: [Errno 111] Connection refused')': /all
+2025-06-02 18:18:56,679 - dme_collector - INFO - Données DME collectées avec succès
+2025-06-02 18:18:56,691 - dme_collector - INFO - Données enregistrées dans /app/data/dme_data.csv
+2025-06-02 18:18:56,692 - dme_collector - ERROR - Erreur lors de l'envoi des données à Logstash: [Errno 111] Connection refused
+2025-06-02 18:24:21,905 - dme_collector - INFO - Démarrage de la collecte de données DME (intervalle: 180s)
+2025-06-02 18:24:21,917 - dme_collector - INFO - Données DME collectées avec succès
+2025-06-02 18:24:21,920 - dme_collector - INFO - Données enregistrées dans /app/data/dme_data.csv
+2025-06-02 18:24:21,922 - dme_collector - ERROR - Erreur lors de l'envoi des données à Logstash: [Errno 111] Connection refused

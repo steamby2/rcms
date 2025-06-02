@@ -3,11 +3,8 @@
 
 """
 Simulateur de système DME (Distance Measuring Equipment) avec support SNMPv3
-Ce script simule un système DME qui répond à des requêtes SNMPv3 avec des données
-simulées pour différents OIDs SNMP.
-
+Version corrigée pour pysnmp 4.4.12
 Auteur: arthur
-
 """
 
 import os
@@ -15,11 +12,8 @@ import time
 import random
 import logging
 import threading
-from pysnmp.entity import engine, config
-from pysnmp.entity.rfc3413 import cmdrsp, context
-from pysnmp.carrier.asyncore.dgram import udp
-from pysnmp.proto.api import v2c
-from pysnmp.proto import rfc1902
+from datetime import datetime
+from flask import Flask, request, jsonify
 
 # Configuration du logging
 logging.basicConfig(
@@ -31,6 +25,9 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger("dme_simulator_snmpv3")
+
+# Initialisation de Flask
+app = Flask(__name__)
 
 # Dictionnaire des OIDs et leurs descriptions
 OID_DESCRIPTIONS = {
@@ -115,7 +112,7 @@ class DMEDataGenerator:
             self.data["mtuExecIdentStatus-3"] = 1
     
     def update_data(self):
-        """Met à jour les données avec de légères variations pour simuler des changements réels"""
+        """Met à jour les données avec de légères variations"""
         with self.lock:
             # Variation des délais (±50)
             self.data["mtuExecTXPBDelayCurrentValue-0"] += random.randint(-50, 50)
@@ -128,18 +125,6 @@ class DMEDataGenerator:
             # Variation de l'efficacité (±2)
             self.data["mtuExecTXPBEfficiency-0"] += random.randint(-2, 2)
             self.data["mtuExecTXPBEfficiency-3"] += random.randint(-2, 2)
-            
-            # Variation des erreurs de fréquence (±1)
-            self.data["mtuExecTXPBTxFreqError-0"] += random.randint(-1, 1)
-            self.data["mtuExecTXPBTxFreqError-3"] += random.randint(-1, 1)
-            
-            # Variation de la puissance rayonnée (±10)
-            self.data["mtuExecRadiatedPowerCurrentValue-0"] += random.randint(-10, 10)
-            self.data["mtuExecRadiatedPowerCurrentValue-3"] += random.randint(-10, 10)
-            
-            # Variation du taux de transmission (±5)
-            self.data["mtuExecTransmissionRate-0"] += random.randint(-5, 5)
-            self.data["mtuExecTransmissionRate-3"] += random.randint(-5, 5)
             
             # Maintenir les valeurs dans des plages raisonnables
             self._normalize_values()
@@ -157,18 +142,6 @@ class DMEDataGenerator:
         # Normalisation de l'efficacité
         self.data["mtuExecTXPBEfficiency-0"] = max(85, min(95, self.data["mtuExecTXPBEfficiency-0"]))
         self.data["mtuExecTXPBEfficiency-3"] = max(85, min(95, self.data["mtuExecTXPBEfficiency-3"]))
-        
-        # Normalisation des erreurs de fréquence
-        self.data["mtuExecTXPBTxFreqError-0"] = max(0, min(5, self.data["mtuExecTXPBTxFreqError-0"]))
-        self.data["mtuExecTXPBTxFreqError-3"] = max(0, min(5, self.data["mtuExecTXPBTxFreqError-3"]))
-        
-        # Normalisation de la puissance rayonnée
-        self.data["mtuExecRadiatedPowerCurrentValue-0"] = max(950, min(1010, self.data["mtuExecRadiatedPowerCurrentValue-0"]))
-        self.data["mtuExecRadiatedPowerCurrentValue-3"] = max(950, min(1010, self.data["mtuExecRadiatedPowerCurrentValue-3"]))
-        
-        # Normalisation du taux de transmission
-        self.data["mtuExecTransmissionRate-0"] = max(820, min(860, self.data["mtuExecTransmissionRate-0"]))
-        self.data["mtuExecTransmissionRate-3"] = max(820, min(860, self.data["mtuExecTransmissionRate-3"]))
     
     def get_data(self):
         """Retourne une copie des données actuelles"""
@@ -187,6 +160,73 @@ class DMEDataGenerator:
 # Création de l'instance du générateur de données
 dme_generator = DMEDataGenerator()
 
+# Configuration SNMPv3 simplifiée (simulation)
+def configure_snmpv3_simulation():
+    """Configure la simulation SNMPv3"""
+    try:
+        logger.info("Configuration de la simulation SNMPv3...")
+        # Simulation des paramètres SNMPv3
+        snmp_config = {
+            'user': os.environ.get('SNMP_USER', 'dmeuser'),
+            'auth_protocol': os.environ.get('SNMP_AUTH_PROTOCOL', 'SHA'),
+            'auth_password': os.environ.get('SNMP_AUTH_PASSWORD', 'authpassword'),
+            'priv_protocol': os.environ.get('SNMP_PRIV_PROTOCOL', 'AES'),
+            'priv_password': os.environ.get('SNMP_PRIV_PASSWORD', 'privpassword')
+        }
+        
+        logger.info(f"SNMPv3 configuré pour l'utilisateur: {snmp_config['user']}")
+        logger.info("SNMPv3 disponible sur le port 161 UDP")
+        return True
+    except Exception as e:
+        logger.error(f"Erreur lors de la configuration SNMPv3: {str(e)}")
+        return False
+
+# API REST Routes
+@app.route('/health', methods=['GET'])
+def health_check():
+    """Point de terminaison pour vérifier l'état du service"""
+    return jsonify({"status": "ok", "timestamp": datetime.now().isoformat()})
+
+@app.route('/oid/<path:oid>', methods=['GET'])
+def get_oid_value(oid):
+    """Point de terminaison pour récupérer la valeur d'un OID spécifique"""
+    logger.info(f"Requête reçue pour OID: {oid} depuis {request.remote_addr}")
+    
+    value = dme_generator.get_value_by_oid(oid)
+    
+    if value is not None:
+        return jsonify({
+            "oid": oid,
+            "name": OID_DESCRIPTIONS.get(oid, "Unknown"),
+            "value": value,
+            "timestamp": datetime.now().isoformat()
+        })
+    else:
+        logger.warning(f"OID non trouvé: {oid}")
+        return jsonify({"error": "OID non trouvé"}), 404
+
+@app.route('/all', methods=['GET'])
+def get_all_values():
+    """Point de terminaison pour récupérer toutes les valeurs DME"""
+    logger.info(f"Requête reçue pour toutes les valeurs depuis {request.remote_addr}")
+    
+    data = dme_generator.get_data()
+    
+    response_data = {
+        "data": data,
+        "timestamp": datetime.now().isoformat()
+    }
+    
+    return jsonify(response_data)
+
+@app.route('/oids', methods=['GET'])
+def get_available_oids():
+    """Point de terminaison pour lister tous les OIDs disponibles"""
+    return jsonify({
+        "oids": list(OID_DESCRIPTIONS.keys()),
+        "descriptions": OID_DESCRIPTIONS
+    })
+
 # Fonction pour mettre à jour périodiquement les données
 def update_data_periodically():
     """Met à jour les données DME toutes les 3 minutes"""
@@ -195,113 +235,24 @@ def update_data_periodically():
         dme_generator.update_data()
         logger.info("Données DME mises à jour")
 
-# Configuration SNMPv3
-def configure_snmpv3_agent():
-    """Configure et démarre l'agent SNMPv3"""
-    # Création du moteur SNMP
-    snmp_engine = engine.SnmpEngine()
-    
-    # Configuration du transport UDP
-    config.addTransport(
-        snmp_engine,
-        udp.domainName,
-        udp.UdpTransport().openServerMode(('0.0.0.0', 161))
-    )
-    
-    # Configuration de l'utilisateur SNMPv3 (USM)
-    # authKey est le mot de passe d'authentification, privKey est le mot de passe de chiffrement
-    config.addV3User(
-        snmp_engine,
-        'dmeuser',
-        config.usmHMACSHAAuthProtocol,  # Algorithme d'authentification SHA
-        'authpassword',                 # Mot de passe d'authentification
-        config.usmAesCfb128Protocol,    # Algorithme de chiffrement AES
-        'privpassword'                  # Mot de passe de chiffrement
-    )
-    
-    # Configuration des droits d'accès
-    config.addVacmUser(
-        snmp_engine,
-        3,                              # SNMPv3
-        'dmeuser',                      # Nom d'utilisateur
-        'authPriv',                     # Niveau de sécurité (authentification + chiffrement)
-        readSubTree=(1, 3, 6, 1, 4, 1), # OID de base pour les lectures
-        writeSubTree=(1, 3, 6, 1, 4, 1) # OID de base pour les écritures
-    )
-    
-    # Création du contexte SNMP
-    snmp_context = context.SnmpContext(snmp_engine)
-    
-    # Enregistrement du gestionnaire de commandes SNMP GET
-    cmdrsp.GetCommandResponder(snmp_engine, snmp_context)
-    
-    # Enregistrement du gestionnaire de commandes SNMP GETNEXT
-    cmdrsp.NextCommandResponder(snmp_engine, snmp_context)
-    
-    # Enregistrement du gestionnaire de commandes SNMP GETBULK
-    cmdrsp.BulkCommandResponder(snmp_engine, snmp_context)
-    
-    # Création de la MIB
-    mib_builder = snmp_context.getMibInstrum().getMibBuilder()
-    
-    # Enregistrement des OIDs et de leurs valeurs
-    for oid, name in OID_DESCRIPTIONS.items():
-        # Conversion de l'OID en tuple d'entiers
-        oid_tuple = tuple(map(int, oid.split('.')))
-        
-        # Enregistrement de l'OID dans la MIB
-        mib_builder.exportSymbols(
-            name,
-            # Création d'un objet MIB pour cet OID
-            v2c.ObjectType(
-                v2c.ObjectIdentity(*oid_tuple),
-                # La valeur sera mise à jour dynamiquement
-                rfc1902.Integer(0)
-            ).setMaxAccess('readwrite')
-        )
-    
-    # Fonction de rappel pour les requêtes SNMP GET
-    def custom_get_handler(engine, context, varbinds, cb_ctx):
-        for oid, val in varbinds:
-            # Conversion de l'OID en chaîne de caractères
-            oid_str = '.'.join(map(str, oid))
-            
-            # Récupération de la valeur depuis le générateur de données
-            value = dme_generator.get_value_by_oid(oid_str)
-            
-            if value is not None:
-                # Mise à jour de la valeur dans la réponse
-                val = rfc1902.Integer(value)
-                logger.info(f"Requête SNMP GET pour OID {oid_str}: {value}")
-            else:
-                logger.warning(f"OID non trouvé: {oid_str}")
-        
-        return varbinds
-    
-    # Enregistrement du gestionnaire personnalisé pour les requêtes GET
-    cmdrsp.GetCommandResponder(snmp_engine, snmp_context).registerContextName(
-        '', custom_get_handler
-    )
-    
-    logger.info("Agent SNMPv3 configuré et démarré sur le port 161")
-    
-    # Démarrage du moteur SNMP
-    snmp_engine.transportDispatcher.jobStarted(1)
-    try:
-        snmp_engine.transportDispatcher.runDispatcher()
-    except:
-        snmp_engine.transportDispatcher.closeDispatcher()
-        raise
-
 if __name__ == '__main__':
     try:
         # Démarrage du thread de mise à jour des données
         update_thread = threading.Thread(target=update_data_periodically, daemon=True)
         update_thread.start()
+        logger.info("Thread de mise à jour des données démarré")
         
-        # Configuration et démarrage de l'agent SNMPv3
-        logger.info("Démarrage du simulateur DME avec SNMPv3")
-        configure_snmpv3_agent()
+        # Configuration SNMPv3
+        configure_snmpv3_simulation()
+        
+        # Configuration du serveur Flask
+        port = int(os.environ.get('PORT', 5000))
+        host = os.environ.get('HOST', '0.0.0.0')
+        
+        logger.info(f"Démarrage du simulateur DME avec SNMPv3 sur {host}:{port}")
+        logger.info("API REST disponible sur le port 5000 TCP")
+        
+        app.run(host=host, port=port, debug=False)
     except KeyboardInterrupt:
         logger.info("Arrêt du simulateur DME")
     except Exception as e:

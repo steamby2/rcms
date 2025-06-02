@@ -37,8 +37,8 @@ app = Flask(__name__)
 
 # Configuration du limiteur de requêtes pour prévenir les attaques DoS
 limiter = Limiter(
-    get_remote_address,
-    app=app,
+    app,
+    key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"],
     storage_uri="memory://",
 )
@@ -221,11 +221,6 @@ def get_oid_value(oid):
     """Point de terminaison pour récupérer la valeur d'un OID spécifique"""
     # Journalisation de la requête
     logger.info(f"Requête reçue pour OID: {oid} depuis {request.remote_addr}")
-    
-    # Vérification de l'authentification (à implémenter selon les besoins)
-    # if not is_authenticated(request):
-    #     logger.warning(f"Tentative d'accès non autorisé depuis {request.remote_addr}")
-    #     return jsonify({"error": "Non autorisé"}), 401
     
     # Récupération de la valeur
     value = dme_generator.get_value_by_oid(oid)

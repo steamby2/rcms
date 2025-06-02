@@ -1,30 +1,20 @@
-# Configuration principale Logstash pour RCMS_Test
+# Configuration Logstash pour RCMS_Test
 # Auteur: Arthur
 
-# Interface HTTP
 http.host: "0.0.0.0"
 http.port: 9600
 
-# Monitoring Elasticsearch
-xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
-xpack.monitoring.elasticsearch.username: elastic
-xpack.monitoring.elasticsearch.password: "${ELASTIC_PASSWORD}"
-xpack.monitoring.enabled: true
-xpack.monitoring.elasticsearch.ssl.verification_mode: none
+# Chemin des logs
+path.logs: /var/log/logstash
 
-# Chemins des pipelines et données
-path.config: "/usr/share/logstash/pipeline"
-path.data: "/usr/share/logstash/data"
-path.logs: "/usr/share/logstash/logs"
-
-# Configuration des logs
-log.level: info
-log.format: plain
-
-# Configuration de performance
+# Configuration du pipeline
 pipeline.workers: 2
 pipeline.batch.size: 125
 pipeline.batch.delay: 50
 
-# Configuration de la file d'attente
-queue.type: memory
+# Configuration de la sécurité
+xpack.monitoring.enabled: false
+
+# Configuration du reload automatique
+config.reload.automatic: true
+config.reload.interval: 3s

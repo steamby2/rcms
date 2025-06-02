@@ -1,0 +1,21 @@
+2025-06-02 18:18:54,712 - dme_simulator - INFO - Démarrage du simulateur DME sur 0.0.0.0:5000
+2025-06-02 18:18:54,720 - werkzeug - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-06-02 18:18:54,720 - werkzeug - INFO -  * Running on http://172.25.0.2:5000/ (Press CTRL+C to quit)
+2025-06-02 18:18:56,676 - dme_simulator - INFO - Requête reçue pour toutes les valeurs depuis 172.25.0.5
+2025-06-02 18:18:56,677 - werkzeug - INFO - 172.25.0.5 - - [02/Jun/2025 18:18:56] "GET /all HTTP/1.1" 200 -
+2025-06-02 18:18:59,088 - werkzeug - INFO - 127.0.0.1 - - [02/Jun/2025 18:18:59] "GET /health HTTP/1.1" 200 -
+2025-06-02 18:19:28,353 - werkzeug - INFO - 127.0.0.1 - - [02/Jun/2025 18:19:28] "GET /health HTTP/1.1" 200 -
+2025-06-02 18:19:55,755 - werkzeug - INFO - 127.0.0.1 - - [02/Jun/2025 18:19:55] "GET /health HTTP/1.1" 200 -
+2025-06-02 18:20:25,282 - werkzeug - INFO - 127.0.0.1 - - [02/Jun/2025 18:20:25] "GET /health HTTP/1.1" 200 -
+2025-06-02 18:20:53,053 - werkzeug - INFO - 127.0.0.1 - - [02/Jun/2025 18:20:53] "GET /health HTTP/1.1" 200 -
+2025-06-02 18:24:21,644 - dme_simulator - INFO - Démarrage du simulateur DME sur 0.0.0.0:5000
+2025-06-02 18:24:21,650 - werkzeug - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-06-02 18:24:21,650 - werkzeug - INFO -  * Running on http://172.25.0.3:5000/ (Press CTRL+C to quit)
+2025-06-02 18:24:21,915 - dme_simulator - INFO - Requête reçue pour toutes les valeurs depuis 172.25.0.6
+2025-06-02 18:24:21,916 - werkzeug - INFO - 172.25.0.6 - - [02/Jun/2025 18:24:21] "GET /all HTTP/1.1" 200 -
+2025-06-02 18:24:26,310 - werkzeug - INFO - 127.0.0.1 - - [02/Jun/2025 18:24:26] "GET /health HTTP/1.1" 200 -
+2025-06-02 18:24:53,674 - werkzeug - INFO - 127.0.0.1 - - [02/Jun/2025 18:24:53] "GET /health HTTP/1.1" 200 -
+2025-06-02 18:25:21,156 - werkzeug - INFO - 127.0.0.1 - - [02/Jun/2025 18:25:21] "GET /health HTTP/1.1" 200 -
+2025-06-02 18:25:48,575 - werkzeug - INFO - 127.0.0.1 - - [02/Jun/2025 18:25:48] "GET /health HTTP/1.1" 200 -

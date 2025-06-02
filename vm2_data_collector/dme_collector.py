@@ -2,12 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Collecteur de données DME
-Ce script collecte périodiquement les données du simulateur DME via des requêtes HTTP,
-les formate et les enregistre dans un fichier CSV avec horodatage.
-
+Collecteur de données DME simplifié
+Utilise l'API REST du simulateur DME
 Auteur: arthur
-
 """
 
 import os
@@ -18,11 +15,6 @@ import logging
 import requests
 from datetime import datetime
 import socket
-import ssl
-import threading
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
-from requests.packages.urllib3.poolmanager import PoolManager
 
 # Configuration du logging
 logging.basicConfig(
@@ -37,8 +29,8 @@ logger = logging.getLogger("dme_collector")
 
 # Configuration des paramètres
 class Config:
-    # URL du simulateur DME (à modifier selon l'environnement)
-    DME_SIMULATOR_URL = os.environ.get("DME_SIMULATOR_URL", "http://localhost:5000")
+    # URL du simulateur DME
+    DME_SIMULATOR_URL = os.environ.get("DME_SIMULATOR_URL", "http://dme_simulator:5000")
     
     # Intervalle de collecte en secondes (3 minutes par défaut)
     COLLECTION_INTERVAL = int(os.environ.get("COLLECTION_INTERVAL", 180))
@@ -46,35 +38,19 @@ class Config:
     # Chemin du fichier de sortie
     OUTPUT_FILE = os.environ.get("OUTPUT_FILE", "dme_data.csv")
     
-    # Configuration pour Logstash (à activer en production)
+    # Configuration pour Logstash
     LOGSTASH_ENABLED = os.environ.get("LOGSTASH_ENABLED", "false").lower() == "true"
-    LOGSTASH_HOST = os.environ.get("LOGSTASH_HOST", "localhost")
+    LOGSTASH_HOST = os.environ.get("LOGSTASH_HOST", "logstash")
     LOGSTASH_PORT = int(os.environ.get("LOGSTASH_PORT", 5044))
     
     # Paramètres de sécurité
-    VERIFY_SSL = os.environ.get("VERIFY_SSL", "true").lower() == "true"
-    MAX_RETRIES = int(os.environ.get("MAX_RETRIES", 3))
     TIMEOUT = int(os.environ.get("TIMEOUT", 10))
-
-# Classe pour gérer les connexions HTTPS avec vérification de certificat personnalisée
-class SSLAdapter(HTTPAdapter):
-    def __init__(self, *args, **kwargs):
-        self.ssl_context = ssl.create_default_context()
-        super().__init__(*args, **kwargs)
-    
-    def init_poolmanager(self, connections, maxsize, block=False):
-        self.poolmanager = PoolManager(
-            num_pools=connections,
-            maxsize=maxsize,
-            block=block,
-            ssl_context=self.ssl_context
-        )
 
 # Classe pour collecter et traiter les données DME
 class DMECollector:
     def __init__(self):
         self.config = Config()
-        self.session = self._create_session()
+        self.session = requests.Session()
         self.headers = {
             "User-Agent": "DME-Collector/1.0",
             "Accept": "application/json"
@@ -110,29 +86,6 @@ class DMECollector:
         ]
         self._initialize_output_file()
     
-    def _create_session(self):
-        """Crée une session HTTP avec gestion des tentatives et des timeouts"""
-        session = requests.Session()
-        
-        # Configuration des tentatives de reconnexion
-        retry_strategy = Retry(
-            total=self.config.MAX_RETRIES,
-            backoff_factor=1,
-            status_forcelist=[429, 500, 502, 503, 504],
-            allowed_methods=["GET"]
-        )
-        
-        # Utilisation de l'adaptateur SSL personnalisé si la vérification SSL est activée
-        if self.config.VERIFY_SSL:
-            adapter = SSLAdapter(max_retries=retry_strategy)
-        else:
-            adapter = HTTPAdapter(max_retries=retry_strategy)
-        
-        session.mount("http://", adapter)
-        session.mount("https://", adapter)
-        
-        return session
-    
     def _initialize_output_file(self):
         """Initialise le fichier de sortie avec les en-têtes si nécessaire"""
         file_exists = os.path.isfile(self.config.OUTPUT_FILE)
@@ -148,14 +101,13 @@ class DMECollector:
                 raise
     
     def collect_data(self):
-        """Collecte les données du simulateur DME"""
+        """Collecte les données du simulateur DME via API REST"""
         try:
             url = f"{self.config.DME_SIMULATOR_URL}/all"
             response = self.session.get(
                 url,
                 headers=self.headers,
-                timeout=self.config.TIMEOUT,
-                verify=self.config.VERIFY_SSL
+                timeout=self.config.TIMEOUT
             )
             
             if response.status_code == 200:
@@ -163,13 +115,10 @@ class DMECollector:
                 logger.info("Données DME collectées avec succès")
                 return data
             else:
-                logger.error(f"Erreur lors de la collecte des données: {response.status_code} - {response.text}")
+                logger.error(f"Erreur lors de la collecte des données: {response.status_code}")
                 return None
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Erreur de connexion au simulateur DME: {str(e)}")
-            return None
         except Exception as e:
-            logger.error(f"Erreur inattendue lors de la collecte des données: {str(e)}")
+            logger.error(f"Erreur de connexion au simulateur DME: {str(e)}")
             return None
     
     def format_data(self, data):
@@ -183,7 +132,7 @@ class DMECollector:
         # Création d'une ligne de données formatée
         row = [timestamp]
         
-        # Ajout des valeurs dans l'ordre des colonnes (en ignorant le timestamp)
+        # Ajout des valeurs dans l'ordre des colonnes
         for column in self.column_names[1:]:
             row.append(dme_data.get(column, 0))
         
@@ -228,7 +177,7 @@ class DMECollector:
             logger.error(f"Erreur lors de l'envoi des données à Logstash: {str(e)}")
     
     def run_collection_cycle(self):
-        """Exécute un cycle complet de collecte, formatage et enregistrement"""
+        """Exécute un cycle complet de collecte"""
         # Collecte des données
         data = self.collect_data()
         if not data:

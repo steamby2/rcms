@@ -10,21 +10,13 @@ server.port: 5601
 elasticsearch.hosts: ["http://elasticsearch:9200"]
 elasticsearch.username: "${ELASTICSEARCH_USERNAME}"
 elasticsearch.password: "${ELASTICSEARCH_PASSWORD}"
-elasticsearch.ssl.verificationMode: none
 
 # ========================= Security Configuration =========================
 xpack.security.enabled: true
 xpack.encryptedSavedObjects.encryptionKey: "${ENCRYPTION_KEY}"
-server.ssl.enabled: true
-server.ssl.certificate: "/etc/kibana/certs/kibana.crt"
-server.ssl.key: "/etc/kibana/certs/kibana.key"
-
-# ========================= Monitoring Configuration =========================
-monitoring.ui.container.elasticsearch.enabled: true
-xpack.monitoring.ui.container.elasticsearch.enabled: true
 
 # ========================= Logging Configuration =========================
-logging.dest: /var/log/kibana/kibana.log
+logging.dest: stdout
 logging.verbose: false
 
 # ========================= Other Configuration =========================

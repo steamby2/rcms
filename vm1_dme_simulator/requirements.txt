@@ -5,4 +5,5 @@ flask-limiter==2.4.0
 python-dotenv==0.19.0
 cryptography==36.0.1
 pyOpenSSL==21.0.0
-pysnmp==7.1.20
+pysnmp==4.4.12
+pyasn1==0.4.8
