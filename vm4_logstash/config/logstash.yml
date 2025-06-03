@@ -1,20 +1,17 @@
-# Configuration Logstash pour RCMS_Test
-# Auteur: Arthur
-
 http.host: "0.0.0.0"
 http.port: 9600
 
-# Chemin des logs
-path.logs: /var/log/logstash
+path.config: /usr/share/logstash/pipeline
+config.reload.automatic: true
+config.reload.interval: 3s
 
-# Configuration du pipeline
 pipeline.workers: 2
 pipeline.batch.size: 125
 pipeline.batch.delay: 50
 
-# Configuration de la sécurité
+# Désactiver X-Pack monitoring pour simplifier
 xpack.monitoring.enabled: false
 
-# Configuration du reload automatique
-config.reload.automatic: true
-config.reload.interval: 3s
+# Log level pour debug
+log.level: info
+path.logs: /var/log/logstash

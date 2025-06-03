@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   # VM1: Simulateur DME
   dme_simulator:
@@ -28,7 +30,7 @@ services:
       retries: 3
       start_period: 20s
 
-  # VM2: Collecteur de données
+  # VM2: Collecteur de données (LOGSTASH ACTIVÉ)
   data_collector:
     build:
       context: ./vm2_data_collector
@@ -37,6 +39,7 @@ services:
     restart: unless-stopped
     depends_on:
       - dme_simulator
+      - logstash
     volumes:
       - ./data:/app/data
       - ./logs/data_collector:/app/logs
@@ -44,11 +47,13 @@ services:
       - DME_SIMULATOR_URL=http://dme_simulator:5000
       - COLLECTION_INTERVAL=180
       - OUTPUT_FILE=/app/data/dme_data.csv
-      - LOGSTASH_ENABLED=false
+      - LOGSTASH_ENABLED=true
+      - LOGSTASH_HOST=logstash
+      - LOGSTASH_PORT=5044
     networks:
       - rcms_network
 
-  # VM3: Elasticsearch (sans sécurité pour simplifier)
+  # VM3: Elasticsearch (avec sécurité)
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
     container_name: rcms_elasticsearch
@@ -62,7 +67,9 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - discovery.type=single-node
-      - xpack.security.enabled=false
+      - xpack.security.enabled=true
+      - xpack.security.authc.api_key.enabled=true
+      - ELASTIC_PASSWORD=SuperAdmin123!
       - path.logs=/usr/share/elasticsearch/logs
       - bootstrap.memory_lock=false
     ulimits:
@@ -72,13 +79,13 @@ services:
     networks:
       - rcms_network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      test: ["CMD", "curl", "-u", "elastic:SuperAdmin123!", "-f", "http://localhost:9200/_cluster/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 60s
 
-  # VM4: Logstash (simplifié sans SSL)
+  # VM4: Logstash (configuration corrigée)
   logstash:
     image: docker.elastic.co/logstash/logstash:7.14.0
     container_name: rcms_logstash
@@ -94,7 +101,7 @@ services:
       - logstash_logs:/var/log/logstash
     environment:
       - ELASTIC_USERNAME=elastic
-      - ELASTIC_PASSWORD=changeme
+      - ELASTIC_PASSWORD=SuperAdmin123!
     networks:
       - rcms_network
     healthcheck:
@@ -104,7 +111,7 @@ services:
       retries: 3
       start_period: 60s
 
-  # VM5: Kibana (simplifié sans SSL)
+  # VM5: Kibana (avec authentification)
   kibana:
     image: docker.elastic.co/kibana/kibana:7.14.0
     container_name: rcms_kibana
@@ -117,7 +124,10 @@ services:
       - kibana_logs:/var/log/kibana
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=SuperAdmin123!
       - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=ChangeMe123456789012345678901234567890
+      - XPACK_SECURITY_ENABLED=true
       - SERVER_NAME=rcms-kibana
       - SERVER_HOST=0.0.0.0
       - I18N_LOCALE=fr
