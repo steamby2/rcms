@@ -1,0 +1,375 @@
+2025-06-03 20:15:37,199 - snmp_collector - INFO - Collecteur SNMPv3 natif initialisé
+2025-06-03 20:15:37,210 - snmp_collector - INFO -   → Cible: dme_simulator:161
+2025-06-03 20:15:37,211 - snmp_collector - INFO -   → Utilisateur: dmeuser
+2025-06-03 20:15:37,212 - snmp_collector - INFO -   → Intervalle: 10s
+2025-06-03 20:15:37,212 - snmp_collector - INFO -   → OIDs à collecter: 26
+2025-06-03 20:15:37,213 - snmp_collector - INFO - DÉMARRAGE COLLECTEUR SNMPV3 NATIF
+2025-06-03 20:15:37,213 - snmp_collector - INFO - Collecte toutes les 10 secondes
+2025-06-03 20:15:37,214 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:15:41,498 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:15:45,158 - snmp_collector - ERROR - Erreur snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.34: snmpget: Unknown host (dme_simulator:161)
+2025-06-03 20:15:52,167 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:15:59,177 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.34
+2025-06-03 20:16:06,187 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.11
+2025-06-03 20:16:10,466 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.35
+2025-06-03 20:16:17,491 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.11
+2025-06-03 20:16:24,501 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.35
+2025-06-03 20:16:31,516 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.12
+2025-06-03 20:16:35,803 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.36
+2025-06-03 20:16:42,813 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.12
+2025-06-03 20:16:49,826 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.36
+2025-06-03 20:16:56,844 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.13
+2025-06-03 20:17:01,132 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.37
+2025-06-03 20:17:08,149 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.13
+2025-06-03 20:17:15,157 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.37
+2025-06-03 20:17:22,168 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.14
+2025-06-03 20:17:29,175 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.38
+2025-06-03 20:17:33,460 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.14
+2025-06-03 20:17:40,472 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.38
+2025-06-03 20:17:47,478 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.15
+2025-06-03 20:17:54,481 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.15
+2025-06-03 20:17:58,760 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.16
+2025-06-03 20:18:05,770 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.16
+2025-06-03 20:18:12,793 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.17
+2025-06-03 20:18:19,805 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.17
+2025-06-03 20:18:19,806 - snmp_collector - INFO - Collecte terminée: 0/26 OIDs récupérés
+2025-06-03 20:18:19,806 - snmp_collector - ERROR - ✗ Collecte SNMPv3 échouée
+2025-06-03 20:18:19,807 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:18:27,084 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:18:34,093 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:18:41,122 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:18:48,137 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:18:52,425 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.8.34
+2025-06-03 20:18:59,429 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.11
+2025-06-03 20:19:06,441 - snmp_collector - ERROR - Timeout snmpget pour 1.3.6.1.4.1.32275.2.1.2.2.5.35
+2025-06-03 20:19:44,625 - snmp_collector - INFO - Target SNMP résolu: dme_simulator → 172.20.0.3
+2025-06-03 20:19:44,626 - snmp_collector - INFO - DÉMARRAGE COLLECTEUR SNMPV3 CORRIGÉ
+2025-06-03 20:19:44,626 - snmp_collector - INFO - Target: dme_simulator (172.20.0.3)
+2025-06-03 20:19:44,628 - snmp_collector - INFO - Intervalle: 10s
+2025-06-03 20:19:44,628 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:19:44,636 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:19:51,644 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:19:58,653 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:20:05,665 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:20:05,666 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:20:05,666 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:20:12,955 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:20:12,960 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:20:19,971 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:20:26,983 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:20:33,986 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:20:33,987 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:20:33,987 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:20:41,335 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:20:41,341 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:20:48,355 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:20:55,366 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:21:02,375 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:21:02,376 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:21:02,376 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:21:09,660 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:21:09,665 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:21:16,673 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:21:23,697 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:21:30,724 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:21:30,725 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:21:30,725 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:21:38,002 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:21:38,007 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:21:45,017 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:21:52,029 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:21:59,040 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:21:59,041 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:21:59,041 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:22:09,881 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:22:09,885 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:22:16,903 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:22:18,994 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:22:26,008 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:22:26,009 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:22:26,009 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:22:34,653 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:22:34,659 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:22:41,672 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:22:48,690 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:22:55,700 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:22:55,701 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:22:55,702 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:23:02,990 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:23:02,995 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:23:10,011 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:23:17,027 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:23:24,050 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:23:24,051 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:23:24,051 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:23:31,340 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:23:31,344 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:23:38,347 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:23:45,350 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:23:49,634 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:23:49,634 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:23:49,635 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:23:59,637 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:23:59,642 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:24:06,647 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:24:13,661 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:24:17,941 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:24:17,942 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:24:17,942 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:24:27,957 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:24:27,963 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:24:34,967 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:24:41,981 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:24:46,255 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:24:46,255 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:24:46,256 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:24:56,270 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:24:56,275 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:25:03,290 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:25:10,306 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.34
+2025-06-03 20:25:14,592 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.8.10
+2025-06-03 20:25:14,592 - snmp_collector - ERROR - Erreur cycle: name 'random' is not defined
+2025-06-03 20:25:14,592 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:25:24,614 - snmp_collector - INFO - === DÉBUT COLLECTE SNMPV3 ===
+2025-06-03 20:25:24,619 - snmp_collector - INFO - ✓ Connectivité réseau vers dme_simulator
+2025-06-03 20:25:31,630 - snmp_collector - ERROR - Timeout commande pour 1.3.6.1.4.1.32275.2.1.2.2.5.10
+2025-06-03 20:25:56,915 - snmp_collector - INFO - Collecteur DME simplifié initialisé
+2025-06-03 20:25:56,916 - snmp_collector - INFO - Intervalle: 10s
+2025-06-03 20:25:56,916 - snmp_collector - INFO - Logstash: True
+2025-06-03 20:25:56,917 - snmp_collector - INFO - OIDs: 26
+2025-06-03 20:25:56,917 - snmp_collector - INFO - DÉMARRAGE COLLECTEUR DME SIMPLIFIÉ
+2025-06-03 20:25:56,917 - snmp_collector - INFO - Mode: Simulation complète avec données réalistes
+2025-06-03 20:25:56,917 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:25:56,918 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:25:56,924 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:25:56,926 - snmp_collector - ERROR - Erreur Logstash: [Errno 111] Connection refused
+2025-06-03 20:25:56,929 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:25:56,930 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:26:06,940 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:26:06,941 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:26:06,943 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:26:06,945 - snmp_collector - ERROR - Erreur Logstash: [Errno 111] Connection refused
+2025-06-03 20:26:06,945 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:26:06,946 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:26:14,223 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:26:14,224 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:26:14,229 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:26:14,230 - snmp_collector - ERROR - Erreur Logstash: [Errno 111] Connection refused
+2025-06-03 20:26:14,231 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:26:14,231 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:26:24,244 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:26:24,244 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:26:24,246 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:26:24,247 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:26:24,248 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:26:24,248 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:26:34,259 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:26:34,260 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:26:34,262 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:26:34,262 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:26:34,263 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:26:34,263 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:26:41,544 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:26:41,545 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:26:41,547 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:26:41,548 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:26:41,548 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:26:41,548 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:26:51,566 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:26:51,567 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:26:51,569 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:26:51,570 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:26:51,571 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:26:51,571 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:27:01,584 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:27:01,585 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:27:01,587 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:27:01,588 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:27:01,588 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:27:01,588 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:27:08,871 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:27:08,872 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:27:08,874 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:27:08,875 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:27:08,876 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:27:08,876 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:27:18,889 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:27:18,892 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:27:18,894 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:27:18,896 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:27:18,896 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:27:18,897 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:27:28,909 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:27:28,909 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:27:28,911 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:27:28,912 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:27:28,912 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:27:28,912 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:27:36,188 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:27:36,188 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:27:36,190 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:27:36,192 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:27:36,192 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:27:36,192 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:27:46,204 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:27:46,204 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:27:46,206 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:27:46,207 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:27:46,208 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:27:46,208 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:27:56,211 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:27:56,212 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:27:56,214 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:27:56,215 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:27:56,216 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:27:56,216 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:28:03,506 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:28:03,507 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:28:03,509 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:28:03,510 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:28:03,511 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:28:03,511 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:28:13,525 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:28:13,525 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:28:13,528 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:28:13,529 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:28:13,529 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:28:13,530 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:28:23,544 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:28:23,545 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:28:23,547 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:28:23,548 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:28:23,549 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:28:23,549 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:28:30,823 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:28:30,823 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:28:30,826 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:28:30,827 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:28:30,827 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:28:30,827 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:28:40,847 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:28:40,848 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:28:40,851 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:28:40,852 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:28:40,852 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:28:40,853 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:28:50,860 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:28:50,860 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:28:50,863 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:28:50,864 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:28:50,865 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:28:50,865 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:28:58,142 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:28:58,143 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:28:58,145 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:28:58,146 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:28:58,147 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:28:58,147 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:29:08,158 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:29:08,159 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:29:08,161 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:29:08,162 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:29:08,162 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:29:08,163 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:29:18,166 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:29:18,166 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:29:18,168 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:29:18,169 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:29:18,170 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:29:18,171 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:29:25,491 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:29:25,492 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:29:25,494 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:29:25,495 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:29:25,496 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:29:25,496 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:29:35,513 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:29:35,513 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:29:35,516 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:29:35,517 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:29:35,518 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:29:35,518 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:29:45,529 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:29:45,529 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:29:45,532 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:29:45,533 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:29:45,533 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:29:45,534 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:29:52,813 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:29:52,814 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:29:52,816 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:29:52,817 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:29:52,818 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:29:52,818 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:30:02,831 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:30:02,832 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:30:02,834 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:30:02,836 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:30:02,836 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:30:02,837 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:30:12,845 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:30:12,846 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:30:12,848 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:30:12,849 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:30:12,849 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:30:12,850 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:30:20,138 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:30:20,138 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:30:20,140 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:30:20,141 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:30:20,141 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:30:20,141 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:30:30,153 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:30:30,153 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:30:30,155 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:30:30,156 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:30:30,157 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:30:30,157 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:30:40,161 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:30:40,161 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:30:40,163 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:30:40,164 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:30:40,164 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:30:40,164 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:30:47,444 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:30:47,445 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:30:47,447 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:30:47,448 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:30:47,449 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:30:47,449 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:30:57,455 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:30:57,455 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:30:57,458 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:30:57,459 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:30:57,459 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:30:57,459 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:31:07,461 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:31:07,461 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:31:07,464 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:31:07,465 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:31:07,465 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:31:07,465 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:31:14,746 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:31:14,747 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:31:14,749 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:31:14,750 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:31:14,750 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:31:14,750 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:31:24,753 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:31:24,754 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:31:24,757 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:31:24,758 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:31:24,759 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:31:24,759 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:31:34,765 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:31:34,766 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:31:34,768 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:31:34,769 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:31:34,770 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:31:34,770 - snmp_collector - INFO - Attente 10s...
+2025-06-03 20:31:42,056 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-03 20:31:42,056 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-03 20:31:42,059 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-03 20:31:42,060 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-03 20:31:42,060 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-03 20:31:42,060 - snmp_collector - INFO - Attente 10s...

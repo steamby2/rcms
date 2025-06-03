@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # VM1: Simulateur DME
+  # VM1: Agent SNMPv3 DME
   dme_simulator:
     build:
       context: ./vm1_dme_simulator
@@ -10,27 +10,16 @@ services:
     restart: unless-stopped
     ports:
       - "161:161/udp"
-      - "5000:5000"
     volumes:
       - ./logs/dme_simulator:/app/logs
     environment:
       - SNMP_USER=dmeuser
-      - SNMP_AUTH_PROTOCOL=SHA
       - SNMP_AUTH_PASSWORD=authpassword
-      - SNMP_PRIV_PROTOCOL=AES
       - SNMP_PRIV_PASSWORD=privpassword
-      - PORT=5000
-      - HOST=0.0.0.0
     networks:
       - rcms_network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
 
-  # VM2: Collecteur de données (LOGSTASH ACTIVÉ)
+  # VM2: Client SNMPv3
   data_collector:
     build:
       context: ./vm2_data_collector
@@ -44,16 +33,21 @@ services:
       - ./data:/app/data
       - ./logs/data_collector:/app/logs
     environment:
-      - DME_SIMULATOR_URL=http://dme_simulator:5000
-      - COLLECTION_INTERVAL=180
+      - SNMP_HOST=dme_simulator
+      - SNMP_PORT=161
+      - SNMP_USER=dmeuser
+      - SNMP_AUTH_PASSWORD=authpassword
+      - SNMP_PRIV_PASSWORD=privpassword
+      - COLLECTION_INTERVAL=10
       - OUTPUT_FILE=/app/data/dme_data.csv
       - LOGSTASH_ENABLED=true
       - LOGSTASH_HOST=logstash
       - LOGSTASH_PORT=5044
+      - TIMEOUT=5
     networks:
       - rcms_network
 
-  # VM3: Elasticsearch (avec sécurité)
+  # VM3: Elasticsearch
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
     container_name: rcms_elasticsearch
@@ -85,7 +79,7 @@ services:
       retries: 3
       start_period: 60s
 
-  # VM4: Logstash (configuration corrigée)
+  # VM4: Logstash
   logstash:
     image: docker.elastic.co/logstash/logstash:7.14.0
     container_name: rcms_logstash
@@ -111,7 +105,7 @@ services:
       retries: 3
       start_period: 60s
 
-  # VM5: Kibana (avec authentification)
+  # VM5: Kibana
   kibana:
     image: docker.elastic.co/kibana/kibana:7.14.0
     container_name: rcms_kibana

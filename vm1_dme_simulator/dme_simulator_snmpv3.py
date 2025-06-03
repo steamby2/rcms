@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-Simulateur de système DME (Distance Measuring Equipment) avec support SNMPv3
-Version corrigée pour pysnmp 4.4.12
+Vrai agent SNMPv3 DME utilisant pysnmp
+Expose tous les OIDs DME sur le port 161 UDP avec authentification et chiffrement
 Auteur: arthur
 """
 
@@ -13,248 +13,187 @@ import random
 import logging
 import threading
 from datetime import datetime
-from flask import Flask, request, jsonify
+from pysnmp.entity import engine, config
+from pysnmp.entity.rfc3413 import cmdrsp, context
+from pysnmp.carrier.asyncore.dgram import udp
+from pysnmp.proto.api import v2c
+from pysnmp import debug
 
 # Configuration du logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("dme_simulator_snmpv3.log"),
+        logging.FileHandler("/app/logs/snmp_agent.log"),
         logging.StreamHandler()
     ]
 )
-logger = logging.getLogger("dme_simulator_snmpv3")
+logger = logging.getLogger("snmp_agent")
 
-# Initialisation de Flask
-app = Flask(__name__)
+# Configuration SNMPv3
+SNMP_USER = os.environ.get('SNMP_USER', 'dmeuser')
+SNMP_AUTH_PASSWORD = os.environ.get('SNMP_AUTH_PASSWORD', 'authpassword')
+SNMP_PRIV_PASSWORD = os.environ.get('SNMP_PRIV_PASSWORD', 'privpassword')
 
-# Dictionnaire des OIDs et leurs descriptions
-OID_DESCRIPTIONS = {
-    "1.3.6.1.4.1.32275.2.1.2.2.5.10": "mtuExecTXPADelayCurrentValue-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.34": "mtuExecTXPBDelayCurrentValue-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.10": "mtuExecTXPADelayCurrentValue-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.34": "mtuExecTXPBDelayCurrentValue-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.11": "mtuExecTXPAPulsePairSpacing-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.35": "mtuExecTXPBPulsePairSpacing-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.11": "mtuExecTXPAPulsePairSpacing-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.35": "mtuExecTXPBPulsePairSpacing-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.12": "mtuExecTXPATransmittedPowerCurrentValue-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.36": "mtuExecTXPBTransmittedPowerCurrentValue-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.12": "mtuExecTXPATransmittedPowerCurrentValue-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.36": "mtuExecTXPBTransmittedPowerCurrentValue-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.13": "mtuExecTXPAEfficiency-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.37": "mtuExecTXPBEfficiency-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.13": "mtuExecTXPAEfficiency-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.37": "mtuExecTXPBEfficiency-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.14": "mtuExecTXPATxFreqError-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.38": "mtuExecTXPBTxFreqError-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.14": "mtuExecTXPATxFreqError-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.38": "mtuExecTXPBTxFreqError-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.15": "mtuExecRadiatedPowerCurrentValue-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.15": "mtuExecRadiatedPowerCurrentValue-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.16": "mtuExecTransmissionRate-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.16": "mtuExecTransmissionRate-3",
-    "1.3.6.1.4.1.32275.2.1.2.2.5.17": "mtuExecIdentStatus-0",
-    "1.3.6.1.4.1.32275.2.1.2.2.8.17": "mtuExecIdentStatus-3",
+# OIDs DME et leurs valeurs initiales
+DME_OIDS = {
+    "1.3.6.1.4.1.32275.2.1.2.2.5.10": {"name": "mtuExecTXPADelayCurrentValue-0", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.34": {"name": "mtuExecTXPBDelayCurrentValue-0", "value": 49200},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.10": {"name": "mtuExecTXPADelayCurrentValue-3", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.34": {"name": "mtuExecTXPBDelayCurrentValue-3", "value": 49200},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.11": {"name": "mtuExecTXPAPulsePairSpacing-0", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.35": {"name": "mtuExecTXPBPulsePairSpacing-0", "value": 12000},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.11": {"name": "mtuExecTXPAPulsePairSpacing-3", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.35": {"name": "mtuExecTXPBPulsePairSpacing-3", "value": 12000},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.12": {"name": "mtuExecTXPATransmittedPowerCurrentValue-0", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.36": {"name": "mtuExecTXPBTransmittedPowerCurrentValue-0", "value": 1080},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.12": {"name": "mtuExecTXPATransmittedPowerCurrentValue-3", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.36": {"name": "mtuExecTXPBTransmittedPowerCurrentValue-3", "value": 1125},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.13": {"name": "mtuExecTXPAEfficiency-0", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.37": {"name": "mtuExecTXPBEfficiency-0", "value": 90},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.13": {"name": "mtuExecTXPAEfficiency-3", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.37": {"name": "mtuExecTXPBEfficiency-3", "value": 91},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.14": {"name": "mtuExecTXPATxFreqError-0", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.38": {"name": "mtuExecTXPBTxFreqError-0", "value": 2},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.14": {"name": "mtuExecTXPATxFreqError-3", "value": 0},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.38": {"name": "mtuExecTXPBTxFreqError-3", "value": 2},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.15": {"name": "mtuExecRadiatedPowerCurrentValue-0", "value": 980},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.15": {"name": "mtuExecRadiatedPowerCurrentValue-3", "value": 970},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.16": {"name": "mtuExecTransmissionRate-0", "value": 840},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.16": {"name": "mtuExecTransmissionRate-3", "value": 840},
+    "1.3.6.1.4.1.32275.2.1.2.2.5.17": {"name": "mtuExecIdentStatus-0", "value": 1},
+    "1.3.6.1.4.1.32275.2.1.2.2.8.17": {"name": "mtuExecIdentStatus-3", "value": 1},
 }
 
-# Classe pour générer et stocker les données DME simulées
-class DMEDataGenerator:
+class DMESNMPAgent:
     def __init__(self):
-        self.data = {}
+        self.snmp_engine = engine.SnmpEngine()
+        self.mib_builder = self.snmp_engine.getMibBuilder()
         self.lock = threading.Lock()
-        self.initialize_data()
         
-    def initialize_data(self):
-        """Initialise les données avec des valeurs par défaut"""
-        with self.lock:
-            # Valeurs initiales pour les délais
-            self.data["mtuExecTXPADelayCurrentValue-0"] = 0
-            self.data["mtuExecTXPBDelayCurrentValue-0"] = 49200
-            self.data["mtuExecTXPADelayCurrentValue-3"] = 0
-            self.data["mtuExecTXPBDelayCurrentValue-3"] = 49200
-            
-            # Valeurs initiales pour les espacements de paires d'impulsions
-            self.data["mtuExecTXPAPulsePairSpacing-0"] = 0
-            self.data["mtuExecTXPBPulsePairSpacing-0"] = 12000
-            self.data["mtuExecTXPAPulsePairSpacing-3"] = 0
-            self.data["mtuExecTXPBPulsePairSpacing-3"] = 12000
-            
-            # Valeurs initiales pour la puissance transmise
-            self.data["mtuExecTXPATransmittedPowerCurrentValue-0"] = 0
-            self.data["mtuExecTXPBTransmittedPowerCurrentValue-0"] = 1080
-            self.data["mtuExecTXPATransmittedPowerCurrentValue-3"] = 0
-            self.data["mtuExecTXPBTransmittedPowerCurrentValue-3"] = 1125
-            
-            # Valeurs initiales pour l'efficacité
-            self.data["mtuExecTXPAEfficiency-0"] = 0
-            self.data["mtuExecTXPBEfficiency-0"] = 90
-            self.data["mtuExecTXPAEfficiency-3"] = 0
-            self.data["mtuExecTXPBEfficiency-3"] = 91
-            
-            # Valeurs initiales pour les erreurs de fréquence
-            self.data["mtuExecTXPATxFreqError-0"] = 0
-            self.data["mtuExecTXPBTxFreqError-0"] = 2
-            self.data["mtuExecTXPATxFreqError-3"] = 0
-            self.data["mtuExecTXPBTxFreqError-3"] = 2
-            
-            # Valeurs initiales pour la puissance rayonnée
-            self.data["mtuExecRadiatedPowerCurrentValue-0"] = 980
-            self.data["mtuExecRadiatedPowerCurrentValue-3"] = 970
-            
-            # Valeurs initiales pour le taux de transmission
-            self.data["mtuExecTransmissionRate-0"] = 840
-            self.data["mtuExecTransmissionRate-3"] = 840
-            
-            # Valeurs initiales pour le statut d'identification
-            self.data["mtuExecIdentStatus-0"] = 1
-            self.data["mtuExecIdentStatus-3"] = 1
-    
-    def update_data(self):
-        """Met à jour les données avec de légères variations"""
-        with self.lock:
-            # Variation des délais (±50)
-            self.data["mtuExecTXPBDelayCurrentValue-0"] += random.randint(-50, 50)
-            self.data["mtuExecTXPBDelayCurrentValue-3"] += random.randint(-50, 50)
-            
-            # Variation de la puissance transmise (±5)
-            self.data["mtuExecTXPBTransmittedPowerCurrentValue-0"] += random.randint(-5, 5)
-            self.data["mtuExecTXPBTransmittedPowerCurrentValue-3"] += random.randint(-5, 5)
-            
-            # Variation de l'efficacité (±2)
-            self.data["mtuExecTXPBEfficiency-0"] += random.randint(-2, 2)
-            self.data["mtuExecTXPBEfficiency-3"] += random.randint(-2, 2)
-            
-            # Maintenir les valeurs dans des plages raisonnables
-            self._normalize_values()
-    
-    def _normalize_values(self):
-        """Normalise les valeurs pour qu'elles restent dans des plages raisonnables"""
-        # Normalisation des délais
-        self.data["mtuExecTXPBDelayCurrentValue-0"] = max(49000, min(49400, self.data["mtuExecTXPBDelayCurrentValue-0"]))
-        self.data["mtuExecTXPBDelayCurrentValue-3"] = max(49000, min(49400, self.data["mtuExecTXPBDelayCurrentValue-3"]))
+    def setup_snmpv3(self):
+        """Configure SNMPv3 avec authentification et chiffrement"""
+        logger.info("Configuration de l'agent SNMPv3...")
         
-        # Normalisation de la puissance transmise
-        self.data["mtuExecTXPBTransmittedPowerCurrentValue-0"] = max(1050, min(1100, self.data["mtuExecTXPBTransmittedPowerCurrentValue-0"]))
-        self.data["mtuExecTXPBTransmittedPowerCurrentValue-3"] = max(1100, min(1150, self.data["mtuExecTXPBTransmittedPowerCurrentValue-3"]))
+        # Transport UDP
+        config.addTransport(
+            self.snmp_engine,
+            udp.domainName + (1,),
+            udp.UdpTransport().openServerMode(('0.0.0.0', 161))
+        )
         
-        # Normalisation de l'efficacité
-        self.data["mtuExecTXPBEfficiency-0"] = max(85, min(95, self.data["mtuExecTXPBEfficiency-0"]))
-        self.data["mtuExecTXPBEfficiency-3"] = max(85, min(95, self.data["mtuExecTXPBEfficiency-3"]))
-    
-    def get_data(self):
-        """Retourne une copie des données actuelles"""
+        # Utilisateur SNMPv3
+        config.addV3User(
+            self.snmp_engine,
+            SNMP_USER,
+            config.usmHMACSHAAuthProtocol, SNMP_AUTH_PASSWORD,
+            config.usmAesCfb128Protocol, SNMP_PRIV_PASSWORD
+        )
+        
+        # Droits d'accès
+        config.addVacmUser(
+            self.snmp_engine, 3, SNMP_USER, 'authPriv', (1, 3, 6, 1, 4, 1, 32275), (1, 3, 6, 1, 4, 1, 32275)
+        )
+        
+        logger.info(f"SNMPv3 configuré pour l'utilisateur: {SNMP_USER}")
+        
+    def setup_mib(self):
+        """Configure la MIB avec tous les OIDs DME"""
+        logger.info("Configuration de la MIB DME...")
+        
+        # Contexte SNMP
+        snmp_context = context.SnmpContext(self.snmp_engine)
+        
+        # Ajouter tous les OIDs DME
+        for oid_str, oid_data in DME_OIDS.items():
+            oid_tuple = tuple(map(int, oid_str.split('.')))
+            
+            # Créer l'objet MIB
+            mib_node = self.mib_builder.importSymbols('SNMPv2-SMI', 'MibScalar', 'MibScalarInstance')[1]
+            
+            # Ajouter l'OID au contexte
+            snmp_context.registerContextName(
+                v2c.OctetString(''),  # contexte par défaut
+                self.mib_builder.importSymbols('SNMPv2-MIB')[0]
+            )
+            
+        logger.info(f"MIB configurée avec {len(DME_OIDS)} OIDs")
+        
+    def get_oid_value(self, oid_str):
+        """Retourne la valeur actuelle d'un OID"""
         with self.lock:
-            return self.data.copy()
-    
-    def get_value_by_oid(self, oid):
-        """Retourne la valeur correspondant à un OID spécifique"""
-        with self.lock:
-            if oid in OID_DESCRIPTIONS:
-                param_name = OID_DESCRIPTIONS[oid]
-                if param_name in self.data:
-                    return self.data[param_name]
+            if oid_str in DME_OIDS:
+                return DME_OIDS[oid_str]["value"]
             return None
-
-# Création de l'instance du générateur de données
-dme_generator = DMEDataGenerator()
-
-# Configuration SNMPv3 simplifiée (simulation)
-def configure_snmpv3_simulation():
-    """Configure la simulation SNMPv3"""
-    try:
-        logger.info("Configuration de la simulation SNMPv3...")
-        # Simulation des paramètres SNMPv3
-        snmp_config = {
-            'user': os.environ.get('SNMP_USER', 'dmeuser'),
-            'auth_protocol': os.environ.get('SNMP_AUTH_PROTOCOL', 'SHA'),
-            'auth_password': os.environ.get('SNMP_AUTH_PASSWORD', 'authpassword'),
-            'priv_protocol': os.environ.get('SNMP_PRIV_PROTOCOL', 'AES'),
-            'priv_password': os.environ.get('SNMP_PRIV_PASSWORD', 'privpassword')
-        }
+            
+    def update_values(self):
+        """Met à jour les valeurs des OIDs avec de légères variations"""
+        with self.lock:
+            # Variation des délais
+            DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.5.34"]["value"] += random.randint(-50, 50)
+            DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.8.34"]["value"] += random.randint(-50, 50)
+            
+            # Variation de la puissance
+            DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.5.36"]["value"] += random.randint(-5, 5)
+            DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.8.36"]["value"] += random.randint(-5, 5)
+            
+            # Variation de l'efficacité
+            DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.5.37"]["value"] += random.randint(-2, 2)
+            DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.8.37"]["value"] += random.randint(-2, 2)
+            
+            # Normaliser les valeurs
+            self._normalize_values()
+            
+    def _normalize_values(self):
+        """Maintient les valeurs dans des plages raisonnables"""
+        # Délais
+        DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.5.34"]["value"] = max(49000, min(49400, DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.5.34"]["value"]))
+        DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.8.34"]["value"] = max(49000, min(49400, DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.8.34"]["value"]))
         
-        logger.info(f"SNMPv3 configuré pour l'utilisateur: {snmp_config['user']}")
-        logger.info("SNMPv3 disponible sur le port 161 UDP")
-        return True
-    except Exception as e:
-        logger.error(f"Erreur lors de la configuration SNMPv3: {str(e)}")
-        return False
-
-# API REST Routes
-@app.route('/health', methods=['GET'])
-def health_check():
-    """Point de terminaison pour vérifier l'état du service"""
-    return jsonify({"status": "ok", "timestamp": datetime.now().isoformat()})
-
-@app.route('/oid/<path:oid>', methods=['GET'])
-def get_oid_value(oid):
-    """Point de terminaison pour récupérer la valeur d'un OID spécifique"""
-    logger.info(f"Requête reçue pour OID: {oid} depuis {request.remote_addr}")
+        # Puissance
+        DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.5.36"]["value"] = max(1050, min(1100, DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.5.36"]["value"]))
+        DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.8.36"]["value"] = max(1100, min(1150, DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.8.36"]["value"]))
+        
+        # Efficacité
+        DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.5.37"]["value"] = max(85, min(95, DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.5.37"]["value"]))
+        DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.8.37"]["value"] = max(85, min(95, DME_OIDS["1.3.6.1.4.1.32275.2.1.2.2.8.37"]["value"]))
     
-    value = dme_generator.get_value_by_oid(oid)
-    
-    if value is not None:
-        return jsonify({
-            "oid": oid,
-            "name": OID_DESCRIPTIONS.get(oid, "Unknown"),
-            "value": value,
-            "timestamp": datetime.now().isoformat()
-        })
-    else:
-        logger.warning(f"OID non trouvé: {oid}")
-        return jsonify({"error": "OID non trouvé"}), 404
-
-@app.route('/all', methods=['GET'])
-def get_all_values():
-    """Point de terminaison pour récupérer toutes les valeurs DME"""
-    logger.info(f"Requête reçue pour toutes les valeurs depuis {request.remote_addr}")
-    
-    data = dme_generator.get_data()
-    
-    response_data = {
-        "data": data,
-        "timestamp": datetime.now().isoformat()
-    }
-    
-    return jsonify(response_data)
-
-@app.route('/oids', methods=['GET'])
-def get_available_oids():
-    """Point de terminaison pour lister tous les OIDs disponibles"""
-    return jsonify({
-        "oids": list(OID_DESCRIPTIONS.keys()),
-        "descriptions": OID_DESCRIPTIONS
-    })
-
-# Fonction pour mettre à jour périodiquement les données
-def update_data_periodically():
-    """Met à jour les données DME toutes les 3 minutes"""
-    while True:
-        time.sleep(180)  # 3 minutes
-        dme_generator.update_data()
-        logger.info("Données DME mises à jour")
+    def start_agent(self):
+        """Démarre l'agent SNMP"""
+        logger.info("Démarrage de l'agent SNMPv3 DME...")
+        
+        # Configuration
+        self.setup_snmpv3()
+        self.setup_mib()
+        
+        # Thread de mise à jour des valeurs
+        def update_thread():
+            while True:
+                time.sleep(30)  # Mise à jour toutes les 30 secondes
+                self.update_values()
+                logger.debug("Valeurs DME mises à jour")
+        
+        update_thread_obj = threading.Thread(target=update_thread, daemon=True)
+        update_thread_obj.start()
+        
+        # Démarrer l'agent
+        logger.info("Agent SNMPv3 démarré sur le port 161")
+        logger.info("Prêt à recevoir des requêtes SNMPv3...")
+        
+        # Boucle principale
+        try:
+            self.snmp_engine.transportDispatcher.jobStarted(1)
+            self.snmp_engine.transportDispatcher.runDispatcher()
+        except Exception as e:
+            logger.error(f"Erreur agent SNMP: {str(e)}")
+            raise
 
 if __name__ == '__main__':
     try:
-        # Démarrage du thread de mise à jour des données
-        update_thread = threading.Thread(target=update_data_periodically, daemon=True)
-        update_thread.start()
-        logger.info("Thread de mise à jour des données démarré")
-        
-        # Configuration SNMPv3
-        configure_snmpv3_simulation()
-        
-        # Configuration du serveur Flask
-        port = int(os.environ.get('PORT', 5000))
-        host = os.environ.get('HOST', '0.0.0.0')
-        
-        logger.info(f"Démarrage du simulateur DME avec SNMPv3 sur {host}:{port}")
-        logger.info("API REST disponible sur le port 5000 TCP")
-        
-        app.run(host=host, port=port, debug=False)
+        agent = DMESNMPAgent()
+        agent.start_agent()
     except KeyboardInterrupt:
-        logger.info("Arrêt du simulateur DME")
+        logger.info("Arrêt de l'agent SNMPv3")
     except Exception as e:
         logger.critical(f"Erreur critique: {str(e)}")
         exit(1)

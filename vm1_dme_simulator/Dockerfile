@@ -1,29 +1,27 @@
-# Dockerfile minimal pour le simulateur DME avec SNMPv3
+# Dockerfile pour agent SNMP DME fonctionnel
 # Auteur: Arthur
 
 FROM python:3.9-slim
 
 WORKDIR /app
 
-# Installation des dépendances système minimales
+# Pas besoin de snmpd pour la simulation
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copie des fichiers de l'application
-COPY dme_simulator_snmpv3.py /app/
+# Copie des fichiers
+COPY working_snmp_agent.py /app/
 COPY requirements.txt /app/
 
-# Installation des dépendances Python
+# Installation des dépendances Python (aucune nécessaire)
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Création du répertoire pour les logs
+# Création des répertoires
 RUN mkdir -p /app/logs
 
-# Exposition des ports
+# Exposition du port SNMP
 EXPOSE 161/udp
-EXPOSE 5000
 
 # Commande de démarrage
-CMD ["python", "dme_simulator_snmpv3.py"]
+CMD ["python", "working_snmp_agent.py"]

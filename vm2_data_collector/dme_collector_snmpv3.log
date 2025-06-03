@@ -1,5 +1,0 @@
-2025-06-02 18:40:46,591 - dme_collector_snmpv3 - INFO - Démarrage de la collecte de données DME (intervalle: 180s)
-2025-06-02 18:41:26,892 - dme_collector_snmpv3 - ERROR - Erreur SNMP: No SNMP response received before timeout
-2025-06-02 18:42:07,879 - dme_collector_snmpv3 - ERROR - Erreur SNMP: No SNMP response received before timeout
-2025-06-02 18:42:48,450 - dme_collector_snmpv3 - ERROR - Erreur SNMP: No SNMP response received before timeout
-2025-06-02 18:43:29,823 - dme_collector_snmpv3 - ERROR - Erreur SNMP: No SNMP response received before timeout
