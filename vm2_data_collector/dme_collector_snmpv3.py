@@ -20,8 +20,19 @@ import threading
 from datetime import datetime
 import socket
 import ssl
-from pysnmp.hlapi import *
-from pysnmp.entity.rfc3413.oneliner import cmdgen
+from pysnmp.hlapi import (
+    SnmpEngine,
+    UdpTransportTarget,
+    ContextData,
+    ObjectType,
+    ObjectIdentity,
+    getCmd,
+    UsmUserData,
+    usmHMACSHAAuthProtocol,
+    usmHMACMD5AuthProtocol,
+    usmAesCfb128Protocol,
+    usmDESPrivProtocol,
+)
 
 # Configuration du logging
 logging.basicConfig(
@@ -116,48 +127,48 @@ class DMECollector:
         data = {}
         
         try:
-            # Détermination du protocole d'authentification
             if self.config.SNMP_AUTH_PROTOCOL.upper() == "SHA":
                 auth_protocol = usmHMACSHAAuthProtocol
             else:
                 auth_protocol = usmHMACMD5AuthProtocol
-            
-            # Détermination du protocole de confidentialité
+
             if self.config.SNMP_PRIV_PROTOCOL.upper() == "AES":
                 priv_protocol = usmAesCfb128Protocol
             else:
                 priv_protocol = usmDESPrivProtocol
-            
-            # Création du générateur de commandes SNMP
-            cmd_gen = cmdgen.CommandGenerator()
-            
-            # Collecte des données pour chaque OID
+
+            auth_data = UsmUserData(
+                self.config.SNMP_USER,
+                self.config.SNMP_AUTH_PASSWORD,
+                self.config.SNMP_PRIV_PASSWORD,
+                authProtocol=auth_protocol,
+                privProtocol=priv_protocol,
+            )
+
             for oid, name in OID_LIST.items():
-                # Création de l'authentification SNMPv3
-                auth_data = UsmUserData(
-                    self.config.SNMP_USER,
-                    self.config.SNMP_AUTH_PASSWORD,
-                    self.config.SNMP_PRIV_PASSWORD,
-                    authProtocol=auth_protocol,
-                    privProtocol=priv_protocol
-                )
-                
-                # Exécution de la requête SNMP GET
-                error_indication, error_status, error_index, var_binds = cmd_gen.getCmd(
+                iterator = getCmd(
+                    SnmpEngine(),
                     auth_data,
-                    cmdgen.UdpTransportTarget((self.config.SNMP_HOST, self.config.SNMP_PORT), timeout=self.config.TIMEOUT, retries=self.config.MAX_RETRIES),
-                    ObjectIdentity(oid)
+                    UdpTransportTarget(
+                        (self.config.SNMP_HOST, self.config.SNMP_PORT),
+                        timeout=self.config.TIMEOUT,
+                        retries=self.config.MAX_RETRIES,
+                    ),
+                    ContextData(),
+                    ObjectType(ObjectIdentity(oid)),
                 )
-                
-                # Vérification des erreurs
+
+                error_indication, error_status, error_index, var_binds = next(iterator)
+
                 if error_indication:
                     logger.error(f"Erreur SNMP: {error_indication}")
                     continue
                 elif error_status:
-                    logger.error(f"Erreur SNMP: {error_status.prettyPrint()} à l'index {error_index}")
+                    logger.error(
+                        f"Erreur SNMP: {error_status.prettyPrint()} à l'index {error_index}"
+                    )
                     continue
-                
-                # Extraction de la valeur
+
                 for var_bind in var_binds:
                     value = var_bind[1]
                     data[name] = int(value)
