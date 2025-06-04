@@ -1,4 +1,4 @@
-# Dockerfile pour collecteur DME simplifié
+# Dockerfile pour le collecteur SNMPv3 DME
 # Auteur: Arthur
 
 FROM python:3.9-slim
@@ -6,7 +6,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copie des fichiers
-COPY simple_collector.py /app/
+COPY dme_collector_snmpv3.py /app/
 COPY requirements.txt /app/
 
 # Installation des dépendances Python
@@ -16,4 +16,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir -p /app/data /app/logs
 
 # Commande de démarrage
-CMD ["python", "simple_collector.py"]
+CMD ["python", "dme_collector_snmpv3.py"]
