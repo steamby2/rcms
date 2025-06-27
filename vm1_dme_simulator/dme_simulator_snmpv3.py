@@ -17,7 +17,7 @@ from pysnmp.entity import engine, config
 from pysnmp.entity.rfc3413 import cmdrsp, context
 from pysnmp.carrier.asyncore.dgram import udp
 from pysnmp.proto.api import v2c
-from pysnmp.smi import builder, view, rfc1902, instrum
+from pysnmp import debug
 
 # Configuration du logging
 logging.basicConfig(
@@ -69,8 +69,6 @@ class DMESNMPAgent:
     def __init__(self):
         self.snmp_engine = engine.SnmpEngine()
         self.mib_builder = self.snmp_engine.getMibBuilder()
-        self.mib_instrum = instrum.MibInstrumController(self.mib_builder)
-        self.oid_instances = {}
         self.lock = threading.Lock()
         
     def setup_snmpv3(self):
@@ -102,23 +100,23 @@ class DMESNMPAgent:
     def setup_mib(self):
         """Configure la MIB avec tous les OIDs DME"""
         logger.info("Configuration de la MIB DME...")
-
+        
+        # Contexte SNMP
+        snmp_context = context.SnmpContext(self.snmp_engine)
+        
+        # Ajouter tous les OIDs DME
         for oid_str, oid_data in DME_OIDS.items():
-            oid_tuple = tuple(int(x) for x in oid_str.split('.'))
-
-            MibScalar, MibScalarInstance = self.mib_builder.importSymbols(
-                'SNMPv2-SMI', 'MibScalar', 'MibScalarInstance'
+            oid_tuple = tuple(map(int, oid_str.split('.')))
+            
+            # Créer l'objet MIB
+            mib_node = self.mib_builder.importSymbols('SNMPv2-SMI', 'MibScalar', 'MibScalarInstance')[1]
+            
+            # Ajouter l'OID au contexte
+            snmp_context.registerContextName(
+                v2c.OctetString(''),  # contexte par défaut
+                self.mib_builder.importSymbols('SNMPv2-MIB')[0]
             )
-
-            scalar = MibScalar(oid_tuple, rfc1902.Integer32()).setMaxAccess('readonly')
-            instance = MibScalarInstance(oid_tuple, (0,), rfc1902.Integer32(oid_data['value']))
-            self.mib_builder.exportSymbols(f'DME-MIB-{oid_data["name"]}', scalar, instance)
-            self.oid_instances[oid_str] = instance
-
-        self.snmp_context = context.SnmpContext(self.snmp_engine)
-        cmdrsp.GetCommandResponder(self.snmp_engine, self.snmp_context)
-        cmdrsp.NextCommandResponder(self.snmp_engine, self.snmp_context)
-
+            
         logger.info(f"MIB configurée avec {len(DME_OIDS)} OIDs")
         
     def get_oid_value(self, oid_str):
@@ -145,10 +143,6 @@ class DMESNMPAgent:
             
             # Normaliser les valeurs
             self._normalize_values()
-
-            # Mettre à jour les instances MIB
-            for oid_str, instance in self.oid_instances.items():
-                instance.setValue(rfc1902.Integer32(DME_OIDS[oid_str]["value"]))
             
     def _normalize_values(self):
         """Maintient les valeurs dans des plages raisonnables"""

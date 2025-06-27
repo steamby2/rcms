@@ -1,1 +1,1 @@
-pysnmp>=4.4
+# Aucune dépendance Python nécessaire pour l'agent simplifié

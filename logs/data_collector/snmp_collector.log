@@ -11689,3 +11689,195 @@
 2025-06-04 21:23:20,717 - snmp_collector - INFO - ✓ Données envoyées à Logstash
 2025-06-04 21:23:20,717 - snmp_collector - INFO - === FIN CYCLE ===
 2025-06-04 21:23:20,718 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:05:23,635 - snmp_collector - INFO - Collecteur DME simplifié initialisé
+2025-06-27 17:05:23,636 - snmp_collector - INFO - Intervalle: 10s
+2025-06-27 17:05:23,636 - snmp_collector - INFO - Logstash: True
+2025-06-27 17:05:23,636 - snmp_collector - INFO - OIDs: 26
+2025-06-27 17:05:23,637 - snmp_collector - INFO - DÉMARRAGE COLLECTEUR DME SIMPLIFIÉ
+2025-06-27 17:05:23,637 - snmp_collector - INFO - Mode: Simulation complète avec données réalistes
+2025-06-27 17:05:23,637 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:05:23,638 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:05:23,655 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:05:23,657 - snmp_collector - ERROR - Erreur Logstash: [Errno 111] Connection refused
+2025-06-27 17:05:23,657 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:05:23,658 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:05:33,666 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:05:33,666 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:05:33,668 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:05:33,669 - snmp_collector - ERROR - Erreur Logstash: [Errno 111] Connection refused
+2025-06-27 17:05:33,670 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:05:33,670 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:05:43,679 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:05:43,685 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:05:43,697 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:05:43,699 - snmp_collector - ERROR - Erreur Logstash: [Errno 111] Connection refused
+2025-06-27 17:05:43,700 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:05:43,700 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:05:53,710 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:05:53,710 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:05:53,713 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:05:53,714 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:05:53,714 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:05:53,714 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:06:03,724 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:06:03,725 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:06:03,728 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:06:03,729 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:06:03,729 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:06:03,729 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:06:33,491 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:06:33,491 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:06:33,493 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:06:33,494 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:06:33,495 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:06:33,495 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:06:23,745 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:06:23,745 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:06:23,746 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:06:23,747 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:06:23,748 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:06:23,748 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:06:33,751 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:06:33,751 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:06:33,752 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:06:33,753 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:06:33,753 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:06:33,754 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:06:43,762 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:06:43,763 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:06:43,765 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:06:43,766 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:06:43,766 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:06:43,766 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:06:53,773 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:06:53,774 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:06:53,776 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:06:53,777 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:06:53,777 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:06:53,777 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:07:03,787 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:07:03,787 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:07:03,789 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:07:03,790 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:07:03,790 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:07:03,790 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:07:13,805 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:07:13,806 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:07:13,810 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:07:13,811 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:07:13,812 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:07:13,812 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:07:23,811 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:07:23,812 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:07:23,814 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:07:23,815 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:07:23,815 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:07:23,816 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:07:33,824 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:07:33,825 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:07:33,827 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:07:33,828 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:07:33,828 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:07:33,828 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:07:43,838 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:07:43,838 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:07:43,841 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:07:43,841 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:07:43,842 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:07:43,842 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:07:53,851 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:07:53,853 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:07:53,863 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:07:53,867 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:07:53,868 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:07:53,868 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:08:03,877 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:08:03,878 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:08:03,881 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:08:03,882 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:08:03,882 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:08:03,882 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:08:13,894 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:08:13,894 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:08:13,897 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:08:13,898 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:08:13,898 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:08:13,898 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:08:23,906 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:08:23,906 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:08:23,909 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:08:23,910 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:08:23,910 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:08:23,910 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:08:33,920 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:08:33,921 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:08:33,923 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:08:33,924 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:08:33,925 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:08:33,925 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:08:43,940 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:08:43,940 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:08:43,942 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:08:43,943 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:08:43,943 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:08:43,944 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:08:53,950 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:08:53,951 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:08:53,953 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:08:53,954 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:08:53,955 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:08:53,955 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:09:03,965 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:09:03,965 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:09:03,968 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:09:03,969 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:09:03,969 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:09:03,970 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:09:13,984 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:09:13,985 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:09:13,987 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:09:13,988 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:09:13,988 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:09:13,989 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:09:23,995 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:09:23,995 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:09:23,997 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:09:23,998 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:09:23,998 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:09:23,998 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:09:34,001 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:09:34,002 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:09:34,004 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:09:34,005 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:09:34,005 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:09:34,005 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:09:44,010 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:09:44,011 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:09:44,013 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:09:44,013 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:09:44,014 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:09:44,014 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:09:54,016 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:09:54,017 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:09:54,018 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:09:54,019 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:09:54,019 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:09:54,020 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:10:04,030 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:10:04,031 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:10:04,033 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:10:04,034 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:10:04,034 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:10:04,035 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:10:14,041 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:10:14,042 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:10:14,044 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:10:14,045 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:10:14,045 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:10:14,045 - snmp_collector - INFO - Attente 10s...
+2025-06-27 17:10:24,056 - snmp_collector - INFO - === COLLECTE DME ===
+2025-06-27 17:10:24,057 - snmp_collector - INFO - ✓ Collecte réussie: 26 métriques
+2025-06-27 17:10:24,059 - snmp_collector - INFO - ✓ Données CSV sauvegardées
+2025-06-27 17:10:24,060 - snmp_collector - INFO - ✓ Données envoyées à Logstash
+2025-06-27 17:10:24,061 - snmp_collector - INFO - === FIN CYCLE ===
+2025-06-27 17:10:24,061 - snmp_collector - INFO - Attente 10s...

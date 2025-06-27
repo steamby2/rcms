@@ -1,0 +1,17 @@
+2025-06-27 13:32:46,724 - dme_simulator - INFO - Démarrage du simulateur DME HTTP...
+2025-06-27 13:32:46,729 - dme_simulator - INFO - Simulateur DME démarré:
+2025-06-27 13:32:46,729 - dme_simulator - INFO - Listener SNMP UDP démarré sur le port 161
+2025-06-27 13:32:46,730 - dme_simulator - INFO -   - API HTTP: port 5000
+2025-06-27 13:32:46,730 - dme_simulator - INFO -   - Listener SNMP: port 161 UDP
+2025-06-27 13:32:46,730 - dme_simulator - INFO -   - Authentification: Basic Auth
+2025-06-27 13:32:46,731 - dme_simulator - INFO -   - Utilisateur: dmeuser
+2025-06-27 13:32:46,731 - dme_simulator - INFO -   - Endpoints disponibles:
+2025-06-27 13:32:46,731 - dme_simulator - INFO -     * GET /health - Santé du service
+2025-06-27 13:32:46,731 - dme_simulator - INFO -     * GET /snmp/<oid> - Valeur d'un OID
+2025-06-27 13:32:46,732 - dme_simulator - INFO -     * GET /snmp/all - Tous les OIDs
+2025-06-27 13:32:46,732 - dme_simulator - INFO -     * GET /stats - Statistiques
+2025-06-27 13:32:46,736 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.0.3:5000
+2025-06-27 13:32:46,741 - werkzeug - INFO - [33mPress CTRL+C to quit[0m

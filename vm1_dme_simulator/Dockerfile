@@ -1,4 +1,4 @@
-# Dockerfile pour l'agent SNMPv3 DME
+# Dockerfile pour agent SNMP DME fonctionnel
 # Auteur: Arthur
 
 FROM python:3.9-slim
@@ -11,9 +11,10 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Copie des fichiers
-COPY dme_simulator_snmpv3.py /app/
+COPY working_snmp_agent.py /app/
 COPY requirements.txt /app/
 
+# Installation des dépendances Python (aucune nécessaire)
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Création des répertoires
@@ -23,4 +24,4 @@ RUN mkdir -p /app/logs
 EXPOSE 161/udp
 
 # Commande de démarrage
-CMD ["python", "dme_simulator_snmpv3.py"]
+CMD ["python", "working_snmp_agent.py"]
